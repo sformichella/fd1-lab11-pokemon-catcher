@@ -18,3 +18,18 @@ h1 {
 
     padding: 20px 50px;
 }
+
+section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.pokemon-display {
+    height: 200px;
+    width: 200px;
+}
+
+.hidden {
+    display: none;
+}

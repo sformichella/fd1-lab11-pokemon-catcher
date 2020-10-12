@@ -1,5 +1,8 @@
-// import functions and grab DOM elements
 
-// initialize state
+const startButton = document.getElementById('home-start-button');
 
-// set event listeners to update state and DOM
+
+startButton.addEventListener('click', () => {
+    location.href = './game-page';
+})
+
