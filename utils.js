@@ -25,3 +25,58 @@ export function findPokemonByName(array, string) {
     }
     return null;
 }
+
+
+export function getAllSiblings(element) {
+    let siblings = [];
+
+    if (element.parent) {
+        return siblings;
+    }
+
+    let sibling = element.parentElement.firstChild;
+
+    while (sibling) {
+        if (sibling.nodeType === 1){
+            siblings.push(sibling)
+        }
+        sibling = sibling.nextSibling;
+    }
+
+    return siblings;
+};
+
+
+export function getSibling(element, string) {
+    for (const sib of getAllSiblings(element)) {
+        if (sib.tagName === string.toUpperCase()){
+            return sib;
+        }
+    }
+}
+
+
+export function getTotalCatches(pokemonData) {
+    let total = 0;
+
+    for (const pokemon of pokemonData) {
+        total += pokemon.catches;
+    }
+
+    return total;
+}
+
+
+export function incrementEncounters(pokemon, data) {
+    const pokeEncounter = findPokemonByName(data, pokemon["pokemon"]);
+
+    if (pokeEncounter) {
+        pokeEncounter.encounters += 1;
+    } else {
+        data.push({
+            name: pokemon["pokemon"],
+            encounters: 1,
+            catches: 0
+        })
+    }
+}
