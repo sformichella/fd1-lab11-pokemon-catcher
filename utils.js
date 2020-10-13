@@ -17,10 +17,10 @@ export function getDistinctRandomNumbers(range, number) {
 };
 
 
-export function getIndexInNodeList(nodeList, element) {
-    for (let i = 0; i < nodeList.length; i++) {
-        if (nodeList[i] === element) {
-            return i;
+export function findPokemonByName(array, string) {
+    for (const object of array) {
+        if (object["pokemon"] === string) {
+            return object;
         }
     }
 

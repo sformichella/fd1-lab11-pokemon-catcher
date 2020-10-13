@@ -1,6 +1,6 @@
 import {
     getDistinctRandomNumbers,
-    getIndexInNodeList
+    findPokemonByName
 } from '../utils.js';
 
 import {
@@ -8,6 +8,7 @@ import {
 } from '../pokemon.js';
 
 // STATE
+let caughtPokemon = [];
 
 
 
@@ -17,6 +18,27 @@ let randomIndices = getDistinctRandomNumbers(pokemonArray.length, 3);
 const nextButton = document.getElementById('next-trio-button');
 
 for (const radio of userChoices) {
+    
+    const radioIndex = userChoices.indexOf(radio);
+    const randomPokemon = pokemonArray[randomIndices[radioIndex]];
+
+    radio.previousElementSibling.src = randomPokemon["url_image"];
+    radio.nextElementSibling.textContent = `${randomPokemon["pokemon"]}`
+
+    console.log(radio);
+
+    const pokeEncounter = findPokemonByName(caughtPokemon, randomPokemon["pokemon"]);
+
+    if (pokeEncounter) {
+        pokeEncounter.encounters += 1;
+    } else {
+        caughtPokemon += {
+            name: randomPokemon["pokemon"],
+            encounters: 1,
+            catches: 0
+        }
+    }
+
     radio.addEventListener('change', (e) => {
 
         e.target.parentElement.style.backgroundColor = 'black';
@@ -27,18 +49,18 @@ for (const radio of userChoices) {
         }
 
         nextButton.classList.toggle('hidden');
-        
+
+        const pokeCatch = findPokemonByName(caughtPokemon, e.target.nextElementSibling.textContent);
+
+        // pokeCatch.catches += 1;
+
+        console.log(e.target);
     })
-
-    const radioIndex = userChoices.indexOf(radio);
-    const randomPokemon = pokemonArray[randomIndices[radioIndex]];
-
-    radio.previousElementSibling.src = randomPokemon["url_image"];
-    radio.nextElementSibling.textContent = `${randomPokemon["pokemon"]}`
 };
 
+
+
 nextButton.addEventListener('click', () => {
-    console.log('next pressed');
 
     randomIndices = getDistinctRandomNumbers(pokemonArray.length, 3);
 
@@ -56,4 +78,14 @@ nextButton.addEventListener('click', () => {
     }
 
     nextButton.classList.toggle('hidden');
-})
+
+    let totalPokemon = 0;
+    for (const pokemon of caughtPokemon) {
+        totalPokemon += pokemon.catches;
+    }
+
+    if (totalPokemon > 9) {
+        location.href = '../results';
+        caughtPokemon = [];
+    }
+});
