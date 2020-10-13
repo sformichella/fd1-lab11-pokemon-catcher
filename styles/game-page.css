@@ -25,6 +25,29 @@ section {
     justify-content: space-around;
 }
 
+section label {
+    display: flex;
+    flex-direction: column;
+
+    border: solid 5px green;
+    border-radius: 10em;
+
+    padding: 40px;
+    margin: 5px;
+}
+
+:checked {
+    background-color: black;
+}
+
+section span {
+    text-align: center;
+    text-transform: uppercase;
+
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 700;
+}
+
 .pokemon-display {
     height: 200px;
     width: 200px;

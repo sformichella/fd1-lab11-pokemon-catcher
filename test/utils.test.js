@@ -7,8 +7,8 @@ import {
 const test = QUnit.test;
 
 test('getDistinctRandomNumbers should take in a number and range and return an array that has number of distinct numbers', (expect) => {
-    const range = 20;
-    const number = 6;
+    const range = 200;
+    const number = 60;
 
     const randomNumbers = getDistinctRandomNumbers(range, number);
     const numberOfRandomNumbers = randomNumbers.length;
