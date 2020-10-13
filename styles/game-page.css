@@ -36,10 +36,6 @@ section label {
     margin: 5px;
 }
 
-:checked {
-    background-color: black;
-}
-
 section span {
     text-align: center;
     text-transform: uppercase;
