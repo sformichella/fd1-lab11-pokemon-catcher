@@ -11,9 +11,10 @@ import {
 let caughtPokemon = [];
 
 
-
+const numberOfCatches = document.getElementById('caught-poke-number');
 const userChoices = [...document.getElementsByName('pokemon')];
 let randomIndices = getDistinctRandomNumbers(pokemonArray.length, 3);
+
 
 const nextButton = document.getElementById('next-trio-button');
 
@@ -25,18 +26,17 @@ for (const radio of userChoices) {
     radio.previousElementSibling.src = randomPokemon["url_image"];
     radio.nextElementSibling.textContent = `${randomPokemon["pokemon"]}`
 
-    console.log(radio);
 
     const pokeEncounter = findPokemonByName(caughtPokemon, randomPokemon["pokemon"]);
 
     if (pokeEncounter) {
         pokeEncounter.encounters += 1;
     } else {
-        caughtPokemon += {
+        caughtPokemon.push({
             name: randomPokemon["pokemon"],
             encounters: 1,
             catches: 0
-        }
+        })
     }
 
     radio.addEventListener('change', (e) => {
@@ -52,9 +52,14 @@ for (const radio of userChoices) {
 
         const pokeCatch = findPokemonByName(caughtPokemon, e.target.nextElementSibling.textContent);
 
-        // pokeCatch.catches += 1;
+        pokeCatch.catches += 1;
 
-        console.log(e.target);
+        let totalPokemon = 0;
+        for (const pokemon of caughtPokemon) {
+        totalPokemon += pokemon.catches;
+    }
+
+    numberOfCatches.textContent = totalPokemon;
     })
 };
 
@@ -75,14 +80,29 @@ nextButton.addEventListener('click', () => {
 
         radio.previousElementSibling.src = randomPokemon["url_image"];
         radio.nextElementSibling.textContent = `${randomPokemon["pokemon"]}`
+
+        const pokeEncounter = findPokemonByName(caughtPokemon, randomPokemon["pokemon"]);
+
+        if (pokeEncounter) {
+            pokeEncounter.encounters += 1;
+        } else {
+            caughtPokemon.push({
+                name: randomPokemon["pokemon"],
+                encounters: 1,
+                catches: 0
+            })
+        }
     }
 
     nextButton.classList.toggle('hidden');
+
 
     let totalPokemon = 0;
     for (const pokemon of caughtPokemon) {
         totalPokemon += pokemon.catches;
     }
+
+    numberOfCatches.textContent = totalPokemon;
 
     if (totalPokemon > 9) {
         location.href = '../results';

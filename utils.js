@@ -19,10 +19,9 @@ export function getDistinctRandomNumbers(range, number) {
 
 export function findPokemonByName(array, string) {
     for (const object of array) {
-        if (object["pokemon"] === string) {
+        if (object.name === string) {
             return object;
         }
     }
-
     return null;
 }
