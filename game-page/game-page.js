@@ -18,23 +18,25 @@ import {
 let catchesAndEncounters = [];
 
 
+// DOM Elements
 const numberOfCatches = document.getElementById('caught-poke-number');
 const userChoices = [...document.getElementsByName('pokemon')];
 const nextButton = document.getElementById('next-trio-button');
 
+const randomIndices = getDistinctRandomNumbers(pokemonArray.length, 3);
 
+// Initialize Radio Buttons
 for (const radio of userChoices) {
 
-    const randomIndices = getDistinctRandomNumbers(pokemonArray.length, 3);
     const radioIndex = userChoices.indexOf(radio);
     const randomPokemon = pokemonArray[randomIndices[radioIndex]];
 
     getSibling(radio, 'img').src = randomPokemon["url_image"];
-    getSibling(radio, 'span').textContent = `${randomPokemon["pokemon"]}`
+    getSibling(radio, 'span').textContent = `${randomPokemon["pokemon"]}`;
 
     incrementEncounters(randomPokemon, catchesAndEncounters);
 
-    
+
     radio.addEventListener('change', (e) => {
 
         e.target.parentElement.style.backgroundColor = 'black';
@@ -59,14 +61,15 @@ for (const radio of userChoices) {
 };
 
 
-
+// Next Button Handler
 nextButton.addEventListener('click', () => {
+
+    const randomIndices = getDistinctRandomNumbers(pokemonArray.length, 3);
 
     for (const radio of userChoices) {
 
         resetRadioButton(radio);
 
-        const randomIndices = getDistinctRandomNumbers(pokemonArray.length, 3);
         const radioIndex = userChoices.indexOf(radio);
         const randomPokemon = pokemonArray[randomIndices[radioIndex]];
 
@@ -74,7 +77,7 @@ nextButton.addEventListener('click', () => {
         getSibling(radio, 'span').textContent = `${randomPokemon["pokemon"]}`;
 
         incrementEncounters(randomPokemon, catchesAndEncounters);
-    }
+    };
 
     nextButton.classList.toggle('hidden');
 
